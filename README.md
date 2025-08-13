@@ -2,9 +2,6 @@
   <img src="https://c.tenor.com/zm4ghF49WX8AAAAd/tenor.gif" alt="Animated Black Hole" width="320" height="320" />
 </p>
 
-<hr />
-
-
 ## 🛠️ Technology Stack
 
 <p align="center">
