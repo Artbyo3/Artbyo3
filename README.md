@@ -1,6 +1,6 @@
 
   
-<img src="https://raw.githubusercontent.com/Artbyo3/blackhole-assets/main/animated-blackhole.svg" alt="Animated Black Hole" width="320" height="320"/>
+<img src="https://c.tenor.com/zm4ghF49WX8AAAAd/tenor.gif" alt="Animated Black Hole" width="320" height="320"/>
 
 
 ---
