@@ -1,12 +1,12 @@
 
   
+<div align="center">
 <img src="https://c.tenor.com/zm4ghF49WX8AAAAd/tenor.gif" alt="Animated Black Hole" width="320" height="320"/>
-
-
+</div>
 ---
 
 <div align="center">
-	<img src="https://skillicons.dev/icons?i=python" height="40"/>
+    <img src="https://skillicons.dev/icons?i=python,html,css,js" height="40"/>
 </div>
 
 ## Hi there 👋
