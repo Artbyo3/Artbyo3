@@ -40,7 +40,9 @@
 I’m **o3** — a creator, developer, and experimenter who loves turning ideas into reality.
 
 🛠 **Tech I use**  
-- Python  
+- Python
+- Html
+
 
 
 
