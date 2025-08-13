@@ -4,8 +4,18 @@
 
 <hr />
 
+
+## 🛠️ Technology Stack
+
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=python,html,css,js" height="44" alt="Skills: Python, HTML, CSS, JS" />
+	<img src="https://skillicons.dev/icons?i=python,html,css,js,ts,react,nodejs,express,git,linux,docker" height="44" alt="Skills: Python, HTML, CSS, JS, TypeScript, React, Node.js, Express, Git, Linux, Docker" />
+</p>
+
+<p align="center">
+	<sub>
+		<strong>Languages & Frameworks:</strong> Python, JavaScript, TypeScript, HTML, CSS, React, Node.js, Express<br>
+		<strong>Tools:</strong> Git, Linux, Docker
+	</sub>
 </p>
 
 <hr />
