@@ -1,10 +1,7 @@
 
-<div align="center">
   
-		<img src="https://raw.githubusercontent.com/Artbyo3/blackhole-assets/main/animated-blackhole.svg" alt="Animated Black Hole" width="320" height="320"/>
-		<br/>
-		<sub><i>Animated black hole — don't get too close!</i></sub>
-</div>
+<img src="https://raw.githubusercontent.com/Artbyo3/blackhole-assets/main/animated-blackhole.svg" alt="Animated Black Hole" width="320" height="320"/>
+
 
 ---
 
