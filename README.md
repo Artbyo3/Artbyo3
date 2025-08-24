@@ -5,7 +5,8 @@
 ## 🛠️ Technology Stack
 
 <p align="center">
-	<img src="https://skillicons.dev/icons?i=python,html,css,js,linux,docker" height="44" alt="Skills: Python, HTML, CSS, JS, Linux, Docker" />
+	<img src="https://skillicons.dev/icons?i=python,html,css,js,ts,linux,docker" height="44" alt="Skills: Python, HTML, CSS, JS, TS, Linux, Docker" />
+
 </p>
 
 
