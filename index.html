@@ -10,20 +10,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Climate+Crisis&family=Orbitron:wght@500;800&family=Syne:wght@400;700;800&family=Unbounded:wght@600;800&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add('js')</script>
 <style>
+/* Palette: the BOOTH tool's default colors (Color 1, 2, 3) plus its button coral */
 :root{
   --bg:#04050a;
   --ink:#eef2ff;
   --mute:#a3acc7;
-  --cyan:#00e5ff;
-  --blue:#1f6feb;
   --sky:#78b7ff;
   --violet:#c285ff;
   --mint:#66ffc2;
-  --amber:#ffb86b;
   --coral:#fc4d50;
-  --glass:rgba(16,20,36,.55);
-  --line:rgba(160,190,255,.16);
-  --r:18px;
+  --line:rgba(160,190,255,.18);
+  --r:28px;
 }
 *{box-sizing:border-box}
 html{color-scheme:dark;scroll-behavior:smooth;background:var(--bg)}
@@ -31,10 +28,30 @@ body{margin:0;background:transparent;color:var(--ink);font:400 16px/1.6 Syne,sys
 a{color:inherit}
 img,svg{max-width:100%}
 
-/* ---------- backdrop ---------- */
-#bg{position:fixed;inset:0;width:100vw;height:100vh;z-index:-3;display:block}
-.spot{position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(560px circle at var(--x,50%) var(--y,35%),rgba(0,229,255,.10),transparent 70%)}
+/* ---------- backdrop: Metalheart texture, drifting ---------- */
+#bg{position:fixed;inset:0;width:100vw;height:100vh;z-index:-3;display:block;image-rendering:auto;animation:drift 36s ease-in-out infinite alternate}
+@keyframes drift{from{transform:scale(1.06) translate(-1.5%,1%)}to{transform:scale(1.12) translate(1.5%,-1.5%)}}
+.shade{position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(120% 90% at 50% 40%,rgba(4,5,10,.1) 30%,rgba(4,5,10,.6) 100%),rgba(4,5,10,.34)}
+.spot{position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(560px circle at var(--x,50%) var(--y,35%),rgba(120,183,255,.12),transparent 70%)}
 .grain{position:fixed;inset:-50%;z-index:-1;pointer-events:none;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1.2s steps(6) infinite}
+
+/* ---------- liquid glass: translucent fill, blur, bright-to-dim rim, top-left highlight ---------- */
+.glass{
+  position:relative;
+  background:
+    radial-gradient(120% 90% at 0% 0%,rgba(255,255,255,.26),rgba(255,255,255,0) 55%),
+    linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,.03) 45%,rgba(255,255,255,.1));
+  backdrop-filter:blur(18px) saturate(170%);
+  -webkit-backdrop-filter:blur(18px) saturate(170%);
+  box-shadow:0 24px 50px -22px rgba(4,5,10,.75),inset 0 1px 0 rgba(255,255,255,.35),inset 0 -12px 24px -14px rgba(194,133,255,.3);
+}
+.glass::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;pointer-events:none;
+  background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(255,255,255,.1) 35%,rgba(255,255,255,.1) 65%,rgba(255,255,255,.7));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+}
 
 /* ---------- type ---------- */
 .chrome{
@@ -42,10 +59,10 @@ img,svg{max-width:100%}
   background-size:200% 100%;
   -webkit-background-clip:text;background-clip:text;color:transparent;
   animation:sheen 7s linear infinite;
-  filter:drop-shadow(0 0 22px rgba(0,229,255,.28));
+  filter:drop-shadow(0 0 22px rgba(120,183,255,.35));
 }
 @keyframes sheen{from{background-position:0% 0}to{background-position:100% 0}}
-.kicker{font:600 13px/1 Orbitron,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--cyan);margin:0 0 22px}
+.kicker{font:600 13px/1 Orbitron,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--sky);margin:0 0 22px}
 .muted{color:var(--mute)}
 
 /* ---------- layout ---------- */
@@ -53,61 +70,57 @@ img,svg{max-width:100%}
 .section{padding:72px 0}
 
 /* ---------- nav ---------- */
-.nav{position:sticky;top:12px;z-index:10;margin:12px auto 0;width:min(1080px,calc(100% - 32px));display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 20px;border-radius:999px;background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%)}
+.nav{position:sticky;top:12px;z-index:10;margin:12px auto 0;width:min(1080px,calc(100% - 32px));display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 20px;border-radius:999px}
 .logo{font:800 22px/1 Unbounded,sans-serif;text-decoration:none}
 .nav nav{display:flex;gap:22px}
 .nav nav a{text-decoration:none;color:var(--mute);font-weight:700;font-size:14px;transition:color .2s}
 .nav nav a:hover{color:var(--ink)}
-.pill{text-decoration:none;font-weight:700;font-size:14px;padding:8px 16px;border-radius:999px;background:linear-gradient(120deg,var(--cyan),var(--violet));color:#04050a;transition:transform .2s}
+.pill{text-decoration:none;font-weight:700;font-size:14px;padding:8px 16px;border-radius:999px;background:linear-gradient(120deg,var(--sky),var(--violet));color:#04050a;transition:transform .2s}
 .pill:hover{transform:translateY(-1px)}
 
 /* ---------- hero ---------- */
 .hero{min-height:86vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:56px 0 32px;position:relative}
 .wordmark{font-family:"Climate Crisis",Unbounded,sans-serif;font-weight:400;font-size:clamp(110px,24vw,300px);line-height:.95;margin:0;letter-spacing:-.01em;animation:sheen 7s linear infinite,bob 5s ease-in-out infinite}
-.eyebrow{font:600 13px/1.4 Orbitron,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:var(--cyan);margin:0 0 14px}
+.eyebrow{font:600 13px/1.4 Orbitron,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:var(--sky);margin:0 0 14px}
 .typed{font:700 clamp(20px,3vw,30px)/1.3 Syne,sans-serif;min-height:1.3em;margin:18px 0 0}
 .caret{display:inline-block;width:.08em;height:1em;background:var(--mint);margin-left:6px;vertical-align:-.12em;animation:blink 1s steps(1) infinite}
 .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;text-decoration:none;font:700 15px/1 Syne,sans-serif;transition:transform .2s,box-shadow .2s,background .2s;border:1px solid transparent}
+.btn{position:relative;display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;text-decoration:none;font:700 15px/1 Syne,sans-serif;transition:transform .2s,box-shadow .2s;border:0}
 .btn:hover{transform:translateY(-2px)}
 .btn.primary{background:linear-gradient(120deg,var(--coral),#ff8a5b);color:#fff;box-shadow:0 12px 30px -10px rgba(252,77,80,.7)}
-.btn.ghost{background:var(--glass);border-color:var(--line);color:var(--ink);backdrop-filter:blur(10px)}
-.btn.ghost:hover{border-color:rgba(0,229,255,.5)}
+.btn.ghost{color:var(--ink)}
 .scroll{margin-top:40px;color:var(--mute);text-decoration:none;font-size:22px;animation:bob 2.4s ease-in-out infinite}
 
 /* ---------- about / cards ---------- */
 .lead{font:700 clamp(22px,3vw,32px)/1.3 Syne,sans-serif;max-width:760px;margin:40px 0 0}
 .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
-.card{position:relative;display:block;overflow:hidden;background:var(--glass);border:1px solid var(--line);border-radius:var(--r);padding:22px;text-decoration:none;backdrop-filter:blur(12px) saturate(130%);-webkit-backdrop-filter:blur(12px) saturate(130%);transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .35s ease,border-color .3s,box-shadow .3s}
-.card::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(340px circle at var(--mx,50%) var(--my,0%),rgba(0,229,255,.16),transparent 60%);opacity:0;transition:opacity .3s}
-.card::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.13) 50%,transparent 60%);transform:translateX(-120%);transition:transform .9s ease}
-.card:hover::before{opacity:1}
+.card{display:block;overflow:hidden;padding:24px;border-radius:var(--r);text-decoration:none;transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .35s ease,box-shadow .3s}
+.card::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.14) 50%,transparent 60%);transform:translateX(-120%);transition:transform .9s ease}
 .card:hover::after{transform:translateX(120%)}
-.card:hover{border-color:rgba(0,229,255,.45);box-shadow:0 24px 60px -24px rgba(0,229,255,.4)}
-.card h3{font:800 20px/1.2 Syne,sans-serif;margin:0 0 8px}
-.card p{margin:0;color:var(--mute);font-size:15px}
-.card .tag{display:inline-block;font:600 11px/1 Orbitron,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mint);border:1px solid rgba(102,255,194,.35);padding:6px 9px;border-radius:999px;margin-bottom:14px}
+.card:hover{box-shadow:0 30px 60px -24px rgba(120,183,255,.45),0 24px 50px -22px rgba(4,5,10,.75),inset 0 1px 0 rgba(255,255,255,.4)}
+.card h3{font:800 20px/1.2 Syne,sans-serif;margin:0 0 8px;position:relative;z-index:1}
+.card p{margin:0;color:var(--mute);font-size:15px;position:relative;z-index:1}
+.card .tag{position:relative;z-index:1;display:inline-block;font:600 11px/1 Orbitron,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mint);border:1px solid rgba(102,255,194,.4);padding:6px 9px;border-radius:999px;margin-bottom:14px}
 .links{display:flex;gap:14px;margin-top:16px;font-weight:700;font-size:14px;position:relative;z-index:1}
-.links a{color:var(--cyan);text-decoration:none}
+.links a{color:var(--sky);text-decoration:none}
 .links a:hover{text-decoration:underline}
 .links a + a{color:var(--violet)}
-.card.icon-only{padding:22px 22px 18px}
 
 /* ---------- repo chips ---------- */
 .more{margin-top:28px}
 .more h3{font:600 13px/1 Orbitron,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--mute);margin:0 0 14px}
 .repos{display:flex;flex-wrap:wrap;gap:10px}
-.repos a{font:600 14px/1 Syne,sans-serif;text-decoration:none;padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid var(--line);color:var(--ink);transition:border-color .2s,transform .2s}
-.repos a:hover{border-color:var(--cyan);transform:translateY(-2px)}
+.repos a{font:600 14px/1 Syne,sans-serif;text-decoration:none;padding:10px 14px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--ink);backdrop-filter:blur(10px) saturate(160%);transition:border-color .2s,transform .2s}
+.repos a:hover{border-color:var(--sky);transform:translateY(-2px)}
 
 /* ---------- tool spotlight ---------- */
 .spotcard{display:grid;grid-template-columns:1.1fr 1fr;gap:22px;align-items:center}
-.preview{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:radial-gradient(circle at 22% 30%,#1f6feb 0,transparent 45%),radial-gradient(circle at 80% 68%,#00e5ff 0,transparent 40%),radial-gradient(circle at 62% 18%,#c285ff 0,transparent 42%),#04050a;animation:hue 12s linear infinite;display:grid;place-items:center}
+.preview{position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:radial-gradient(circle at 22% 30%,var(--sky) 0,transparent 45%),radial-gradient(circle at 80% 68%,var(--mint) 0,transparent 40%),radial-gradient(circle at 62% 18%,var(--violet) 0,transparent 42%),linear-gradient(160deg,#0e1424,#04050a);display:grid;place-items:center}
 .preview span{font:400 clamp(36px,7vw,84px)/1 "Climate Crisis",Unbounded,sans-serif;position:relative}
-.preview::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 14px);mix-blend-mode:overlay}
-.spotcard h3{font:800 clamp(22px,3vw,30px)/1.2 Syne,sans-serif;margin:0 0 12px}
-.spotcard p{color:var(--mute);margin:0 0 22px}
+.spotcard h3{font:800 clamp(22px,3vw,30px)/1.2 Syne,sans-serif;margin:0 0 12px;position:relative;z-index:1}
+.spotcard p{color:var(--mute);margin:0 0 22px;position:relative;z-index:1}
+.spotcard .btn{position:relative;z-index:1}
 
 /* ---------- footer ---------- */
 .foot{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;padding:48px 0 56px;color:var(--mute);font-size:15px}
@@ -119,7 +132,6 @@ img,svg{max-width:100%}
 .js .reveal.in{opacity:1;translate:0 0}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 @keyframes blink{50%{opacity:0}}
-@keyframes hue{to{filter:hue-rotate(360deg)}}
 @keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-4%)}60%{transform:translate(-4%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
 
 /* ---------- responsive ---------- */
@@ -142,10 +154,11 @@ img,svg{max-width:100%}
 </head>
 <body>
 <canvas id="bg" aria-hidden="true"></canvas>
+<div class="shade" aria-hidden="true"></div>
 <div class="spot" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
 
-<header class="nav">
+<header class="nav glass">
   <a class="logo chrome" href="#top" aria-label="Back to top">o3</a>
   <nav>
     <a href="#about">About</a>
@@ -162,7 +175,7 @@ img,svg{max-width:100%}
     <p class="typed"><span id="typed"></span><span class="caret" aria-hidden="true"></span></p>
     <div class="cta">
       <a class="btn primary" href="#projects">See the work</a>
-      <a class="btn ghost" href="tools/booth-background-generator.html">Open the BOOTH tool</a>
+      <a class="btn ghost glass" href="tools/booth-background-generator.html">Open the BOOTH tool</a>
     </div>
     <a class="scroll" href="#about" aria-label="Scroll to about">↓</a>
   </section>
@@ -170,9 +183,9 @@ img,svg{max-width:100%}
   <section id="about" class="wrap section">
     <h2 class="kicker reveal">01 · About</h2>
     <div class="grid3">
-      <article class="card reveal"><h3>Create</h3><p>Art, textures and 3D. Blender themes, matcap tools and free CC0 texture packs.</p></article>
-      <article class="card reveal"><h3>Build</h3><p>Tools and sites that turn an idea into something people can actually use.</p></article>
-      <article class="card reveal"><h3>Experiment</h3><p>Mods, prototypes and strange little ideas that teach something new.</p></article>
+      <article class="card glass reveal"><h3>Create</h3><p>Art, textures and 3D. Blender themes, matcap tools and free CC0 texture packs.</p></article>
+      <article class="card glass reveal"><h3>Build</h3><p>Tools and sites that turn an idea into something people can actually use.</p></article>
+      <article class="card glass reveal"><h3>Experiment</h3><p>Mods, prototypes and strange little ideas that teach something new.</p></article>
     </div>
     <p class="lead reveal">I’m o3, a creator, developer, and experimenter who loves turning ideas into reality.</p>
   </section>
@@ -180,15 +193,15 @@ img,svg{max-width:100%}
   <section id="projects" class="wrap section">
     <h2 class="kicker reveal">02 · Live projects</h2>
     <div class="grid">
-      <article class="card reveal"><span class="tag">Live</span><h3>DEVIL-PAINTER</h3><div class="links"><a href="https://artbyo3.github.io/DEVIL-PAINTER/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/DEVIL-PAINTER" target="_blank" rel="noopener">Repo</a></div></article>
-      <article class="card reveal"><span class="tag">Live</span><h3>DEVIL-DESIGNER</h3><div class="links"><a href="https://artbyo3.github.io/DEVIL-DESIGNER/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/DEVIL-DESIGNER" target="_blank" rel="noopener">Repo</a></div></article>
-      <article class="card reveal"><span class="tag">Live</span><h3>DEVIL-PAINTER Asset Library</h3><p>Free CC0 texture and material packs for Devil Painter and any 3D workflow.</p><div class="links"><a href="https://artbyo3.github.io/DEVIL-PAINTER_Asset_Library/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/DEVIL-PAINTER_Asset_Library" target="_blank" rel="noopener">Repo</a></div></article>
-      <article class="card reveal"><span class="tag">Live</span><h3>Welcome to my ARTBYO3</h3><p>My art over the years.</p><div class="links"><a href="https://artbyo3.github.io/WelcomeToMyARTBYO3/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/WelcomeToMyARTBYO3" target="_blank" rel="noopener">Repo</a></div></article>
-      <article class="card reveal"><span class="tag">Live</span><h3>Matcap Generator</h3><div class="links"><a href="https://artbyo3.github.io/Matcap-Generator/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/Matcap-Generator" target="_blank" rel="noopener">Repo</a></div></article>
-      <article class="card reveal"><span class="tag">Live</span><h3>glassliquidheart</h3><div class="links"><a href="https://artbyo3.github.io/glassliquidheart/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/glassliquidheart" target="_blank" rel="noopener">Repo</a></div></article>
-      <article class="card reveal"><span class="tag">Live</span><h3>VRCOpenWatch</h3><div class="links"><a href="https://artbyo3.github.io/VRCOpenWatch/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/VRCOpenWatch" target="_blank" rel="noopener">Repo</a></div></article>
-      <article class="card reveal"><span class="tag">Live</span><h3>o3portal</h3><p>The o3 portal.</p><div class="links"><a href="https://artbyo3.github.io/o3portal/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/o3portal" target="_blank" rel="noopener">Repo</a></div></article>
-      <article class="card reveal"><span class="tag">Live</span><h3>smymedia</h3><p>Save and register your consumed media.</p><div class="links"><a href="https://www.smymedia.online" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/smymedia" target="_blank" rel="noopener">Repo</a></div></article>
+      <article class="card glass reveal"><span class="tag">Live</span><h3>DEVIL-PAINTER</h3><div class="links"><a href="https://artbyo3.github.io/DEVIL-PAINTER/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/DEVIL-PAINTER" target="_blank" rel="noopener">Repo</a></div></article>
+      <article class="card glass reveal"><span class="tag">Live</span><h3>DEVIL-DESIGNER</h3><div class="links"><a href="https://artbyo3.github.io/DEVIL-DESIGNER/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/DEVIL-DESIGNER" target="_blank" rel="noopener">Repo</a></div></article>
+      <article class="card glass reveal"><span class="tag">Live</span><h3>DEVIL-PAINTER Asset Library</h3><p>Free CC0 texture and material packs for Devil Painter and any 3D workflow.</p><div class="links"><a href="https://artbyo3.github.io/DEVIL-PAINTER_Asset_Library/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/DEVIL-PAINTER_Asset_Library" target="_blank" rel="noopener">Repo</a></div></article>
+      <article class="card glass reveal"><span class="tag">Live</span><h3>Welcome to my ARTBYO3</h3><p>My art over the years.</p><div class="links"><a href="https://artbyo3.github.io/WelcomeToMyARTBYO3/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/WelcomeToMyARTBYO3" target="_blank" rel="noopener">Repo</a></div></article>
+      <article class="card glass reveal"><span class="tag">Live</span><h3>Matcap Generator</h3><div class="links"><a href="https://artbyo3.github.io/Matcap-Generator/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/Matcap-Generator" target="_blank" rel="noopener">Repo</a></div></article>
+      <article class="card glass reveal"><span class="tag">Live</span><h3>glassliquidheart</h3><div class="links"><a href="https://artbyo3.github.io/glassliquidheart/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/glassliquidheart" target="_blank" rel="noopener">Repo</a></div></article>
+      <article class="card glass reveal"><span class="tag">Live</span><h3>VRCOpenWatch</h3><div class="links"><a href="https://artbyo3.github.io/VRCOpenWatch/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/VRCOpenWatch" target="_blank" rel="noopener">Repo</a></div></article>
+      <article class="card glass reveal"><span class="tag">Live</span><h3>o3portal</h3><p>The o3 portal.</p><div class="links"><a href="https://artbyo3.github.io/o3portal/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/o3portal" target="_blank" rel="noopener">Repo</a></div></article>
+      <article class="card glass reveal"><span class="tag">Live</span><h3>smymedia</h3><p>Save and register your consumed media.</p><div class="links"><a href="https://www.smymedia.online" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/smymedia" target="_blank" rel="noopener">Repo</a></div></article>
     </div>
 
     <div class="more reveal">
@@ -215,7 +228,7 @@ img,svg{max-width:100%}
 
   <section id="tool" class="wrap section">
     <h2 class="kicker reveal">03 · Tool</h2>
-    <article class="card spotcard reveal">
+    <article class="card glass spotcard reveal">
       <div class="preview" aria-hidden="true"><span class="chrome">BOOTH</span></div>
       <div>
         <h3>BOOTH Background Generator</h3>
@@ -261,7 +274,7 @@ img,svg{max-width:100%}
     reveals.forEach(n => io.observe(n));
   }
 
-  /* card tilt + light follow */
+  /* card tilt */
   if (!reduce) {
     document.querySelectorAll('.card').forEach(c => {
       c.addEventListener('pointermove', e => {
@@ -270,8 +283,6 @@ img,svg{max-width:100%}
         const y = (e.clientY - r.top) / r.height;
         c.style.setProperty('--rx', ((y - .5) * -7).toFixed(2) + 'deg');
         c.style.setProperty('--ry', ((x - .5) * 7).toFixed(2) + 'deg');
-        c.style.setProperty('--mx', (x * 100) + '%');
-        c.style.setProperty('--my', (y * 100) + '%');
       });
       c.addEventListener('pointerleave', () => {
         c.style.setProperty('--rx', '0deg');
@@ -280,83 +291,86 @@ img,svg{max-width:100%}
     });
   }
 
-  /* spotlight + parallax pointer */
+  /* pointer spotlight */
   const root = document.documentElement;
-  let mxT = 0, myT = 0;
   addEventListener('pointermove', e => {
-    mxT = e.clientX / innerWidth * 2 - 1;
-    myT = e.clientY / innerHeight * 2 - 1;
     root.style.setProperty('--x', e.clientX + 'px');
     root.style.setProperty('--y', e.clientY + 'px');
   }, { passive: true });
 
-  /* depth backdrop: drifting glow blobs + perspective floor grid */
+  /* Metalheart backdrop: the BOOTH tool's metal() heightfield in its default palette */
   const cv = document.getElementById('bg');
-  const ctx = cv.getContext('2d');
-  let W = 0, H = 0, mx = 0, my = 0;
-  const blobs = [
-    { c: '31,111,235',  x: .25, y: .35, r: .62, sp: .00022, ph: 0 },
-    { c: '0,229,255',   x: .78, y: .30, r: .48, sp: .00031, ph: 1.7 },
-    { c: '194,133,255', x: .55, y: .72, r: .55, sp: .00019, ph: 3.1 },
-    { c: '255,184,107', x: .14, y: .80, r: .36, sp: .00027, ph: 4.2 },
-    { c: '102,255,194', x: .88, y: .78, r: .34, sp: .00024, ph: 5.0 }
+  const C1 = [120, 183, 255], C2 = [194, 133, 255], C3 = [102, 255, 194];
+  const mix = (a, b, t) => a.map((v, i) => v + (b[i] - v) * t);
+  const STOPS = [
+    mix(C1, [0, 0, 0], .88),
+    C1,
+    mix(C3, [255, 255, 255], .35),
+    C2,
+    mix(C2, [0, 0, 0], .7),
+    mix(C1, [0, 0, 0], .88)
   ];
-  const resize = () => {
-    W = cv.width = Math.max(160, Math.ceil(innerWidth / 2));
-    H = cv.height = Math.max(120, Math.ceil(innerHeight / 2));
-  };
 
-  function draw(t) {
-    mx += (mxT - mx) * .05;
-    my += (myT - my) * .05;
-    const m = Math.max(W, H);
-
-    ctx.globalCompositeOperation = 'source-over';
-    ctx.fillStyle = '#04050a';
-    ctx.fillRect(0, 0, W, H);
-
-    ctx.globalCompositeOperation = 'lighter';
-    for (const b of blobs) {
-      const x = W * (b.x + Math.sin(t * b.sp + b.ph) * .12) + mx * W * .03;
-      const y = H * (b.y + Math.cos(t * b.sp * 1.3 + b.ph) * .12) + my * H * .03;
-      const r = m * b.r * (1 + .1 * Math.sin(t * b.sp * 2 + b.ph));
-      const g = ctx.createRadialGradient(x, y, 0, x, y, r);
-      g.addColorStop(0, `rgba(${b.c},.5)`);
-      g.addColorStop(.6, `rgba(${b.c},.11)`);
-      g.addColorStop(1, `rgba(${b.c},0)`);
-      ctx.fillStyle = g;
-      ctx.fillRect(0, 0, W, H);
+  function metal(w, h, seed) {
+    let s = seed;
+    const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+    const N = 9, P = [];
+    for (let i = 0; i < N; i++) {
+      P.push({ kx: (rnd() - .5) * 7, ky: (rnd() - .5) * 7, ph: rnd() * 6.28, a: .35 + rnd() * .65, w: rnd() * 6.28 });
     }
-
-    ctx.globalCompositeOperation = 'source-over';
-    const hy = H * .6;
-    const vx = W / 2 + mx * W * .02;
-    const off = ((t / 1000) * .25) % 1;
-    const lg = ctx.createLinearGradient(0, hy, 0, H);
-    lg.addColorStop(0, 'rgba(120,183,255,0)');
-    lg.addColorStop(1, 'rgba(120,183,255,.32)');
-    ctx.strokeStyle = lg;
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    for (let i = 0; i <= 14; i++) {
-      const y = hy + (H - hy) * Math.pow((i + off) / 14, 2.2);
-      ctx.moveTo(0, y); ctx.lineTo(W, y);
+    const hgt = new Float32Array(w * h);
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+      const u = x / h, v = y / h;
+      let z = 0;
+      for (let i = 0; i < N; i++) {
+        const p = P[i], q = P[(i + 1) % N], r = P[(i + 3) % N];
+        z += p.a * Math.sin(p.kx * u + p.ky * v + p.ph + 1.6 * Math.sin(q.kx * v * .8 + q.ky * u + q.w) + .6 * Math.sin(r.kx * u * 1.3 + r.w));
+      }
+      hgt[y * w + x] = z;
     }
-    for (let i = -16; i <= 16; i++) {
-      ctx.moveTo(vx + i * W * .012, hy);
-      ctx.lineTo(vx + i * W * .14, H);
+    const soft = .6;
+    const bands = 2 + (1 - soft) * 4, S = .18 + (1 - soft) * .25, L = [-.4, -.6, .7];
+    const out = document.createElement('canvas');
+    out.width = w; out.height = h;
+    const octx = out.getContext('2d');
+    const img = octx.createImageData(w, h), d = img.data;
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+      const xm = Math.max(0, x - 1), xp = Math.min(w - 1, x + 1);
+      const ym = Math.max(0, y - 1), yp = Math.min(h - 1, y + 1);
+      const gx = (hgt[y * w + xp] - hgt[y * w + xm]) * h / (xp - xm || 1);
+      const gy = (hgt[yp * w + x] - hgt[ym * w + x]) * h / (yp - ym || 1);
+      let nx = -gx * S, ny = -gy * S, nz = 1;
+      const l = Math.hypot(nx, ny, nz);
+      nx /= l; ny /= l; nz /= l;
+      let t = (.5 + .5 * (nx * .55 + ny * .85)) * bands;
+      t -= Math.floor(t);
+      const f = t * 5, j = Math.min(4, f | 0), k = f - j, sm = k * k * (3 - 2 * k);
+      const c = mix(STOPS[j], STOPS[j + 1], sm);
+      const fr = .55 + .45 * nz;
+      const sp = Math.pow(Math.max(0, nx * L[0] + ny * L[1] + nz * L[2]), 40) * 190
+               + Math.exp(-Math.pow((nx - .25) / .1, 2)) * (ny < 0 ? 45 : 12);
+      const o = (y * w + x) * 4;
+      d[o] = Math.min(255, c[0] * fr + sp);
+      d[o + 1] = Math.min(255, c[1] * fr + sp);
+      d[o + 2] = Math.min(255, c[2] * fr + sp);
+      d[o + 3] = 255;
     }
-    ctx.stroke();
+    octx.putImageData(img, 0, 0);
+    return out;
   }
 
-  resize();
-  addEventListener('resize', resize);
-  if (reduce) {
-    draw(0);
-  } else {
-    const loop = t => { draw(t); requestAnimationFrame(loop); };
-    requestAnimationFrame(loop);
+  function paint() {
+    const w = Math.max(240, Math.round(innerWidth / 4));
+    const h = Math.max(135, Math.round(innerHeight / 4));
+    const seed = Math.floor(Math.random() * 1e6) + 1;
+    cv.width = w;
+    cv.height = h;
+    cv.getContext('2d').drawImage(metal(w, h, seed), 0, 0);
   }
+
+  let rt;
+  paint();
+  addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(paint, 200); });
 })();
 </script>
 </body>
