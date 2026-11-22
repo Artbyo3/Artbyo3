@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 340" width="1200" height="340" role="img" aria-label="o3: Code is just art in disguise">
+  <defs>
+    <radialGradient id="b1" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#1f6feb" stop-opacity=".85"/>
+      <stop offset="1" stop-color="#1f6feb" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="b2" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#00e5ff" stop-opacity=".55"/>
+      <stop offset="1" stop-color="#00e5ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="b3" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#c285ff" stop-opacity=".6"/>
+      <stop offset="1" stop-color="#c285ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="b4" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#66ffc2" stop-opacity=".4"/>
+      <stop offset="1" stop-color="#66ffc2" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="chrome" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="300" y2="0" spreadMethod="repeat">
+      <animate attributeName="x1" values="0;300" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="300;600" dur="6s" repeatCount="indefinite"/>
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset=".2" stop-color="#78b7ff"/>
+      <stop offset=".4" stop-color="#ffffff"/>
+      <stop offset=".6" stop-color="#c285ff"/>
+      <stop offset=".8" stop-color="#66ffc2"/>
+      <stop offset="1" stop-color="#ffffff"/>
+    </linearGradient>
+    <clipPath id="floor">
+      <rect x="0" y="230" width="1200" height="110"/>
+    </clipPath>
+    <clipPath id="reveal">
+      <rect x="330" y="0" width="0" height="340">
+        <animate attributeName="width" from="0" to="840" begin="0.4s" dur="2s" fill="freeze"/>
+      </rect>
+    </clipPath>
+  </defs>
+
+  <rect width="1200" height="340" fill="#04050a"/>
+
+  <circle cx="200" cy="150" r="260" fill="url(#b1)">
+    <animate attributeName="cx" values="200;260;200" dur="9s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="150;120;150" dur="11s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="900" cy="120" r="240" fill="url(#b2)">
+    <animate attributeName="cx" values="900;840;900" dur="13s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="120;170;120" dur="8s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="650" cy="300" r="220" fill="url(#b3)">
+    <animate attributeName="cx" values="650;720;650" dur="10s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="1120" cy="290" r="170" fill="url(#b4)">
+    <animate attributeName="cy" values="290;250;290" dur="7s" repeatCount="indefinite"/>
+  </circle>
+
+  <g clip-path="url(#floor)" fill="none" stroke="#78b7ff" stroke-opacity=".32">
+    <g>
+      <path d="M0 210H1200M0 250H1200M0 290H1200M0 330H1200M0 370H1200"/>
+      <animateTransform attributeName="transform" type="translate" from="0 0" to="0 40" dur="2.4s" repeatCount="indefinite"/>
+    </g>
+    <path stroke-opacity=".18" d="M600 230L100 340M600 230L300 340M600 230L600 340M600 230L900 340M600 230L1100 340"/>
+  </g>
+
+  <circle cx="190" cy="165" r="150" fill="none" stroke="#00e5ff" stroke-opacity=".5" stroke-width="2" stroke-dasharray="6 14">
+    <animateTransform attributeName="transform" type="rotate" from="0 190 165" to="360 190 165" dur="30s" repeatCount="indefinite"/>
+  </circle>
+
+  <text x="70" y="215" font-family="Unbounded, Impact, 'Arial Black', sans-serif" font-weight="800" font-size="150" fill="url(#chrome)">o3</text>
+
+  <g clip-path="url(#reveal)">
+    <text x="340" y="118" font-family="Orbitron, Arial, sans-serif" font-size="18" letter-spacing="5" fill="#00e5ff">CREATOR · DEVELOPER · EXPERIMENTER</text>
+    <text x="340" y="190" font-family="Syne, 'Trebuchet MS', sans-serif" font-weight="800" font-size="46" fill="#eef2ff">Code is just art in disguise.</text>
+  </g>
+</svg>
