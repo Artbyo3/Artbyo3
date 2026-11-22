@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>o3 · Artbyo3</title>
+<meta name="description" content="o3: creator, developer, experimenter. Code is just art in disguise.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Climate+Crisis&family=Orbitron:wght@500;800&family=Syne:wght@400;700;800&family=Unbounded:wght@600;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+:root{
+  --bg:#04050a;
+  --ink:#eef2ff;
+  --mute:#a3acc7;
+  --cyan:#00e5ff;
+  --blue:#1f6feb;
+  --sky:#78b7ff;
+  --violet:#c285ff;
+  --mint:#66ffc2;
+  --amber:#ffb86b;
+  --coral:#fc4d50;
+  --glass:rgba(16,20,36,.55);
+  --line:rgba(160,190,255,.16);
+  --r:18px;
+}
+*{box-sizing:border-box}
+html{color-scheme:dark;scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:transparent;color:var(--ink);font:400 16px/1.6 Syne,system-ui,sans-serif;overflow-x:hidden;min-height:100vh}
+a{color:inherit}
+img,svg{max-width:100%}
+
+/* ---------- backdrop ---------- */
+#bg{position:fixed;inset:0;width:100vw;height:100vh;z-index:-3;display:block}
+.spot{position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(560px circle at var(--x,50%) var(--y,35%),rgba(0,229,255,.10),transparent 70%)}
+.grain{position:fixed;inset:-50%;z-index:-1;pointer-events:none;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1.2s steps(6) infinite}
+
+/* ---------- type ---------- */
+.chrome{
+  background:linear-gradient(90deg,#fff 0%,var(--sky) 9%,#fff 16%,var(--violet) 25%,#fff 33%,var(--mint) 41%,#fff 50%,var(--sky) 59%,#fff 66%,var(--violet) 75%,#fff 83%,var(--mint) 91%,#fff 100%);
+  background-size:200% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:sheen 7s linear infinite;
+  filter:drop-shadow(0 0 22px rgba(0,229,255,.28));
+}
+@keyframes sheen{from{background-position:0% 0}to{background-position:100% 0}}
+.kicker{font:600 13px/1 Orbitron,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--cyan);margin:0 0 22px}
+.muted{color:var(--mute)}
+
+/* ---------- layout ---------- */
+.wrap{width:min(1080px,calc(100% - 32px));margin:0 auto}
+.section{padding:72px 0}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:12px;z-index:10;margin:12px auto 0;width:min(1080px,calc(100% - 32px));display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 20px;border-radius:999px;background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%)}
+.logo{font:800 22px/1 Unbounded,sans-serif;text-decoration:none}
+.nav nav{display:flex;gap:22px}
+.nav nav a{text-decoration:none;color:var(--mute);font-weight:700;font-size:14px;transition:color .2s}
+.nav nav a:hover{color:var(--ink)}
+.pill{text-decoration:none;font-weight:700;font-size:14px;padding:8px 16px;border-radius:999px;background:linear-gradient(120deg,var(--cyan),var(--violet));color:#04050a;transition:transform .2s}
+.pill:hover{transform:translateY(-1px)}
+
+/* ---------- hero ---------- */
+.hero{min-height:86vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:56px 0 32px;position:relative}
+.wordmark{font-family:"Climate Crisis",Unbounded,sans-serif;font-weight:400;font-size:clamp(110px,24vw,300px);line-height:.95;margin:0;letter-spacing:-.01em;animation:sheen 7s linear infinite,bob 5s ease-in-out infinite}
+.eyebrow{font:600 13px/1.4 Orbitron,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:var(--cyan);margin:0 0 14px}
+.typed{font:700 clamp(20px,3vw,30px)/1.3 Syne,sans-serif;min-height:1.3em;margin:18px 0 0}
+.caret{display:inline-block;width:.08em;height:1em;background:var(--mint);margin-left:6px;vertical-align:-.12em;animation:blink 1s steps(1) infinite}
+.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;text-decoration:none;font:700 15px/1 Syne,sans-serif;transition:transform .2s,box-shadow .2s,background .2s;border:1px solid transparent}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary{background:linear-gradient(120deg,var(--coral),#ff8a5b);color:#fff;box-shadow:0 12px 30px -10px rgba(252,77,80,.7)}
+.btn.ghost{background:var(--glass);border-color:var(--line);color:var(--ink);backdrop-filter:blur(10px)}
+.btn.ghost:hover{border-color:rgba(0,229,255,.5)}
+.scroll{margin-top:40px;color:var(--mute);text-decoration:none;font-size:22px;animation:bob 2.4s ease-in-out infinite}
+
+/* ---------- about / cards ---------- */
+.lead{font:700 clamp(22px,3vw,32px)/1.3 Syne,sans-serif;max-width:760px;margin:40px 0 0}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.card{position:relative;display:block;overflow:hidden;background:var(--glass);border:1px solid var(--line);border-radius:var(--r);padding:22px;text-decoration:none;backdrop-filter:blur(12px) saturate(130%);-webkit-backdrop-filter:blur(12px) saturate(130%);transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .35s ease,border-color .3s,box-shadow .3s}
+.card::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(340px circle at var(--mx,50%) var(--my,0%),rgba(0,229,255,.16),transparent 60%);opacity:0;transition:opacity .3s}
+.card::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.13) 50%,transparent 60%);transform:translateX(-120%);transition:transform .9s ease}
+.card:hover::before{opacity:1}
+.card:hover::after{transform:translateX(120%)}
+.card:hover{border-color:rgba(0,229,255,.45);box-shadow:0 24px 60px -24px rgba(0,229,255,.4)}
+.card h3{font:800 20px/1.2 Syne,sans-serif;margin:0 0 8px}
+.card p{margin:0;color:var(--mute);font-size:15px}
+.card .tag{display:inline-block;font:600 11px/1 Orbitron,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mint);border:1px solid rgba(102,255,194,.35);padding:6px 9px;border-radius:999px;margin-bottom:14px}
+.links{display:flex;gap:14px;margin-top:16px;font-weight:700;font-size:14px;position:relative;z-index:1}
+.links a{color:var(--cyan);text-decoration:none}
+.links a:hover{text-decoration:underline}
+.links a + a{color:var(--violet)}
+.card.icon-only{padding:22px 22px 18px}
+
+/* ---------- stack chips ---------- */
+.chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:12px}
+.chips li{font:700 15px/1 Syne,sans-serif;padding:12px 18px;border-radius:999px;background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(8px);animation:float 6s ease-in-out infinite;animation-delay:calc(var(--d,0) * -.6s);transition:border-color .2s,color .2s}
+.chips li:hover{border-color:var(--mint);color:var(--mint)}
+
+/* ---------- repo chips ---------- */
+.more{margin-top:28px}
+.more h3{font:600 13px/1 Orbitron,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--mute);margin:0 0 14px}
+.repos{display:flex;flex-wrap:wrap;gap:10px}
+.repos a{font:600 14px/1 Syne,sans-serif;text-decoration:none;padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid var(--line);color:var(--ink);transition:border-color .2s,transform .2s}
+.repos a:hover{border-color:var(--cyan);transform:translateY(-2px)}
+
+/* ---------- tool spotlight ---------- */
+.spotcard{display:grid;grid-template-columns:1.1fr 1fr;gap:22px;align-items:center}
+.preview{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:radial-gradient(circle at 22% 30%,#1f6feb 0,transparent 45%),radial-gradient(circle at 80% 68%,#00e5ff 0,transparent 40%),radial-gradient(circle at 62% 18%,#c285ff 0,transparent 42%),#04050a;animation:hue 12s linear infinite;display:grid;place-items:center}
+.preview span{font:400 clamp(36px,7vw,84px)/1 "Climate Crisis",Unbounded,sans-serif;position:relative}
+.preview::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 14px);mix-blend-mode:overlay}
+.spotcard h3{font:800 clamp(22px,3vw,30px)/1.2 Syne,sans-serif;margin:0 0 12px}
+.spotcard p{color:var(--mute);margin:0 0 22px}
+
+/* ---------- footer ---------- */
+.foot{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;padding:48px 0 56px;color:var(--mute);font-size:15px}
+.foot .logo{font-size:28px}
+.foot a{color:var(--ink)}
+
+/* ---------- motion ---------- */
+.js .reveal{opacity:0;translate:0 28px;transition:opacity .9s ease,translate .9s cubic-bezier(.2,.7,.2,1)}
+.js .reveal.in{opacity:1;translate:0 0}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes blink{50%{opacity:0}}
+@keyframes hue{to{filter:hue-rotate(360deg)}}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-4%)}60%{transform:translate(-4%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+
+/* ---------- responsive ---------- */
+@media (max-width:760px){
+  .spotcard{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .nav nav{display:none}
+  .section{padding:56px 0}
+  .hero{min-height:auto;padding-top:40px}
+  .wordmark{font-size:40vw}
+  .eyebrow{letter-spacing:.2em;font-size:11px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .reveal{opacity:1;translate:none}
+  .card{transform:none!important}
+}
+</style>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="spot" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="logo chrome" href="#top" aria-label="Back to top">o3</a>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#stack">Stack</a>
+    <a href="#projects">Projects</a>
+    <a href="#tool">Tool</a>
+  </nav>
+  <a class="pill" href="https://github.com/Artbyo3" target="_blank" rel="noopener">GitHub ↗</a>
+</header>
+
+<main>
+  <section id="top" class="hero wrap">
+    <p class="eyebrow">Creator · Developer · Experimenter</p>
+    <h1 class="wordmark chrome" aria-label="o3">o3</h1>
+    <p class="typed"><span id="typed"></span><span class="caret" aria-hidden="true"></span></p>
+    <div class="cta">
+      <a class="btn primary" href="#projects">See the work</a>
+      <a class="btn ghost" href="tools/booth-background-generator.html">Open the BOOTH tool</a>
+    </div>
+    <a class="scroll" href="#about" aria-label="Scroll to about">↓</a>
+  </section>
+
+  <section id="about" class="wrap section">
+    <h2 class="kicker reveal">01 · About</h2>
+    <div class="grid3">
+      <article class="card reveal"><h3>Create</h3><p>Art, textures and 3D. Blender themes, matcap tools and free CC0 texture packs.</p></article>
+      <article class="card reveal"><h3>Build</h3><p>Tools and sites that turn an idea into something people can actually use.</p></article>
+      <article class="card reveal"><h3>Experiment</h3><p>Mods, prototypes and strange little ideas that teach something new.</p></article>
+    </div>
+    <p class="lead reveal">I’m o3, a creator, developer, and experimenter who loves turning ideas into reality.</p>
+  </section>
+
+  <section id="stack" class="wrap section">
+    <h2 class="kicker reveal">02 · Stack</h2>
+    <ul class="chips reveal">
+      <li style="--d:0">Python</li>
+      <li style="--d:1">Flask</li>
+      <li style="--d:2">HTML</li>
+      <li style="--d:3">CSS</li>
+      <li style="--d:4">JavaScript</li>
+      <li style="--d:5">TypeScript</li>
+      <li style="--d:6">Blender</li>
+      <li style="--d:7">Linux</li>
+      <li style="--d:8">Docker</li>
+    </ul>
+  </section>
+
+  <section id="projects" class="wrap section">
+    <h2 class="kicker reveal">03 · Live projects</h2>
+    <div class="grid">
+      <article class="card reveal"><span class="tag">Live</span><h3>DEVIL-PAINTER</h3><div class="links"><a href="https://artbyo3.github.io/DEVIL-PAINTER/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/DEVIL-PAINTER" target="_blank" rel="noopener">Repo</a></div></article>
+      <article class="card reveal"><span class="tag">Live</span><h3>DEVIL-DESIGNER</h3><div class="links"><a href="https://artbyo3.github.io/DEVIL-DESIGNER/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/DEVIL-DESIGNER" target="_blank" rel="noopener">Repo</a></div></article>
+      <article class="card reveal"><span class="tag">Live</span><h3>DEVIL-PAINTER Asset Library</h3><p>Free CC0 texture and material packs for Devil Painter and any 3D workflow.</p><div class="links"><a href="https://artbyo3.github.io/DEVIL-PAINTER_Asset_Library/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/DEVIL-PAINTER_Asset_Library" target="_blank" rel="noopener">Repo</a></div></article>
+      <article class="card reveal"><span class="tag">Live</span><h3>Welcome to my ARTBYO3</h3><p>My art over the years.</p><div class="links"><a href="https://artbyo3.github.io/WelcomeToMyARTBYO3/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/WelcomeToMyARTBYO3" target="_blank" rel="noopener">Repo</a></div></article>
+      <article class="card reveal"><span class="tag">Live</span><h3>Matcap Generator</h3><div class="links"><a href="https://artbyo3.github.io/Matcap-Generator/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/Matcap-Generator" target="_blank" rel="noopener">Repo</a></div></article>
+      <article class="card reveal"><span class="tag">Live</span><h3>glassliquidheart</h3><div class="links"><a href="https://artbyo3.github.io/glassliquidheart/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/glassliquidheart" target="_blank" rel="noopener">Repo</a></div></article>
+      <article class="card reveal"><span class="tag">Live</span><h3>VRCOpenWatch</h3><div class="links"><a href="https://artbyo3.github.io/VRCOpenWatch/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/VRCOpenWatch" target="_blank" rel="noopener">Repo</a></div></article>
+      <article class="card reveal"><span class="tag">Live</span><h3>o3portal</h3><p>The o3 portal.</p><div class="links"><a href="https://artbyo3.github.io/o3portal/" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/o3portal" target="_blank" rel="noopener">Repo</a></div></article>
+      <article class="card reveal"><span class="tag">Live</span><h3>smymedia</h3><p>Save and register your consumed media.</p><div class="links"><a href="https://www.smymedia.online" target="_blank" rel="noopener">Open ↗</a><a href="https://github.com/Artbyo3/smymedia" target="_blank" rel="noopener">Repo</a></div></article>
+    </div>
+
+    <div class="more reveal">
+      <h3>More repos</h3>
+      <div class="repos">
+        <a href="https://github.com/Artbyo3/pcomposite" title="Project and file manager for VRChat & Resonite asset pipelines">pcomposite</a>
+        <a href="https://github.com/Artbyo3/xpp" title="Python Flask income tracking and reporting system">xpp</a>
+        <a href="https://github.com/Artbyo3/flite" title="Flask project generator">flite</a>
+        <a href="https://github.com/Artbyo3/flitedocs" title="Official docs for Flite">flitedocs</a>
+        <a href="https://github.com/Artbyo3/everycalc">everycalc</a>
+        <a href="https://github.com/Artbyo3/vtauder" title="VRC OSC Dynamic Chat box">vtauder</a>
+        <a href="https://github.com/Artbyo3/obel" title="Music library">obel</a>
+        <a href="https://github.com/Artbyo3/mitosis-mischief" title="Cells = 2ⁿ">mitosis-mischief</a>
+        <a href="https://github.com/Artbyo3/Artbyo3_blender_theme" title="Blender theme">Artbyo3_blender_theme</a>
+        <a href="https://github.com/Artbyo3/resonite-mod-manifest" title="Manifest for audited ResoniteModLoader mods">resonite-mod-manifest</a>
+        <a href="https://github.com/Artbyo3/Blender-Pose-Sync">Blender-Pose-Sync</a>
+        <a href="https://github.com/Artbyo3/Harbor-Heart">Harbor-Heart</a>
+        <a href="https://github.com/Artbyo3/EXX">EXX</a>
+        <a href="https://github.com/Artbyo3/ResoniteUnityPackagesImporter">ResoniteUnityPackagesImporter</a>
+        <a href="https://github.com/Artbyo3/o3portalreimagined">o3portalreimagined</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="tool" class="wrap section">
+    <h2 class="kicker reveal">04 · Tool</h2>
+    <article class="card spotcard reveal">
+      <div class="preview" aria-hidden="true"><span class="chrome">BOOTH</span></div>
+      <div>
+        <h3>BOOTH Background Generator</h3>
+        <p>Seamless backgrounds, headers and tiles for BOOTH. Metal, liquid, glass and chrome styles with live preview, safe-area guides and a max-KB export.</p>
+        <a class="btn primary" href="tools/booth-background-generator.html">Open the generator</a>
+      </div>
+    </article>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <span class="logo chrome">o3</span>
+  <span>Code is just art in disguise.</span>
+  <a href="https://github.com/Artbyo3" target="_blank" rel="noopener">GitHub ↗</a>
+</footer>
+
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* typewriter tagline */
+  const phrase = 'Code is just art in disguise.';
+  const typed = document.getElementById('typed');
+  if (reduce) {
+    typed.textContent = phrase;
+  } else {
+    let i = 0;
+    const step = () => {
+      typed.textContent = phrase.slice(0, ++i);
+      if (i < phrase.length) setTimeout(step, 60 + Math.random() * 70);
+    };
+    setTimeout(step, 500);
+  }
+
+  /* scroll reveal */
+  const reveals = document.querySelectorAll('.reveal');
+  if (reduce || !('IntersectionObserver' in window)) {
+    reveals.forEach(n => n.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }), { threshold: .12 });
+    reveals.forEach(n => io.observe(n));
+  }
+
+  /* card tilt + light follow */
+  if (!reduce) {
+    document.querySelectorAll('.card').forEach(c => {
+      c.addEventListener('pointermove', e => {
+        const r = c.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width;
+        const y = (e.clientY - r.top) / r.height;
+        c.style.setProperty('--rx', ((y - .5) * -7).toFixed(2) + 'deg');
+        c.style.setProperty('--ry', ((x - .5) * 7).toFixed(2) + 'deg');
+        c.style.setProperty('--mx', (x * 100) + '%');
+        c.style.setProperty('--my', (y * 100) + '%');
+      });
+      c.addEventListener('pointerleave', () => {
+        c.style.setProperty('--rx', '0deg');
+        c.style.setProperty('--ry', '0deg');
+      });
+    });
+  }
+
+  /* spotlight + parallax pointer */
+  const root = document.documentElement;
+  let mxT = 0, myT = 0;
+  addEventListener('pointermove', e => {
+    mxT = e.clientX / innerWidth * 2 - 1;
+    myT = e.clientY / innerHeight * 2 - 1;
+    root.style.setProperty('--x', e.clientX + 'px');
+    root.style.setProperty('--y', e.clientY + 'px');
+  }, { passive: true });
+
+  /* depth backdrop: drifting glow blobs + perspective floor grid */
+  const cv = document.getElementById('bg');
+  const ctx = cv.getContext('2d');
+  let W = 0, H = 0, mx = 0, my = 0;
+  const blobs = [
+    { c: '31,111,235',  x: .25, y: .35, r: .62, sp: .00022, ph: 0 },
+    { c: '0,229,255',   x: .78, y: .30, r: .48, sp: .00031, ph: 1.7 },
+    { c: '194,133,255', x: .55, y: .72, r: .55, sp: .00019, ph: 3.1 },
+    { c: '255,184,107', x: .14, y: .80, r: .36, sp: .00027, ph: 4.2 },
+    { c: '102,255,194', x: .88, y: .78, r: .34, sp: .00024, ph: 5.0 }
+  ];
+  const resize = () => {
+    W = cv.width = Math.max(160, Math.ceil(innerWidth / 2));
+    H = cv.height = Math.max(120, Math.ceil(innerHeight / 2));
+  };
+
+  function draw(t) {
+    mx += (mxT - mx) * .05;
+    my += (myT - my) * .05;
+    const m = Math.max(W, H);
+
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = '#04050a';
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.globalCompositeOperation = 'lighter';
+    for (const b of blobs) {
+      const x = W * (b.x + Math.sin(t * b.sp + b.ph) * .12) + mx * W * .03;
+      const y = H * (b.y + Math.cos(t * b.sp * 1.3 + b.ph) * .12) + my * H * .03;
+      const r = m * b.r * (1 + .1 * Math.sin(t * b.sp * 2 + b.ph));
+      const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+      g.addColorStop(0, `rgba(${b.c},.5)`);
+      g.addColorStop(.6, `rgba(${b.c},.11)`);
+      g.addColorStop(1, `rgba(${b.c},0)`);
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
+    }
+
+    ctx.globalCompositeOperation = 'source-over';
+    const hy = H * .6;
+    const vx = W / 2 + mx * W * .02;
+    const off = ((t / 1000) * .25) % 1;
+    const lg = ctx.createLinearGradient(0, hy, 0, H);
+    lg.addColorStop(0, 'rgba(120,183,255,0)');
+    lg.addColorStop(1, 'rgba(120,183,255,.32)');
+    ctx.strokeStyle = lg;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let i = 0; i <= 14; i++) {
+      const y = hy + (H - hy) * Math.pow((i + off) / 14, 2.2);
+      ctx.moveTo(0, y); ctx.lineTo(W, y);
+    }
+    for (let i = -16; i <= 16; i++) {
+      ctx.moveTo(vx + i * W * .012, hy);
+      ctx.lineTo(vx + i * W * .14, H);
+    }
+    ctx.stroke();
+  }
+
+  resize();
+  addEventListener('resize', resize);
+  if (reduce) {
+    draw(0);
+  } else {
+    const loop = t => { draw(t); requestAnimationFrame(loop); };
+    requestAnimationFrame(loop);
+  }
+})();
+</script>
+</body>
+</html>
