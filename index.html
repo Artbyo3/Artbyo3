@@ -15,9 +15,9 @@
   --bg:#04050a;
   --ink:#eef2ff;
   --mute:#a3acc7;
-  --sky:#00e5ff;
-  --violet:#1f6feb;
-  --mint:#ffb86b;
+  --sky:#78b7ff;
+  --violet:#c285ff;
+  --mint:#66ffc2;
   --coral:#fc4d50;
   --line:rgba(160,190,255,.18);
   --r:28px;
@@ -28,11 +28,11 @@ body{margin:0;background:transparent;color:var(--ink);font:400 16px/1.6 Syne,sys
 a{color:inherit}
 img,svg{max-width:100%}
 
-/* ---------- backdrop: Metalheart texture, drifting ---------- */
-#bg{position:fixed;inset:0;width:100vw;height:100vh;z-index:-3;display:block;image-rendering:auto;animation:drift 36s ease-in-out infinite alternate}
-@keyframes drift{from{transform:scale(1.06) translate(-1.5%,1%)}to{transform:scale(1.12) translate(1.5%,-1.5%)}}
+/* ---------- backdrop: BOOTH tool render (Metalheart + Glass overlay, seamless tile), scrolling one tile per loop ---------- */
+.bgtile{position:fixed;top:0;left:0;width:calc(100vw + 960px);height:calc(100vh + 540px);z-index:-3;background:url(assets/bg-tile.jpg) 0 0/960px 540px repeat;animation:pan 60s linear infinite;will-change:transform}
+@keyframes pan{to{transform:translate(-960px,-540px)}}
 .shade{position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(120% 90% at 50% 40%,rgba(4,5,10,.1) 30%,rgba(4,5,10,.6) 100%),rgba(4,5,10,.34)}
-.spot{position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(560px circle at var(--x,50%) var(--y,35%),rgba(0,229,255,.12),transparent 70%)}
+.spot{position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(560px circle at var(--x,50%) var(--y,35%),rgba(120,183,255,.12),transparent 70%)}
 .grain{position:fixed;inset:-50%;z-index:-1;pointer-events:none;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1.2s steps(6) infinite}
 
 /* ---------- liquid glass: translucent fill, blur, bright-to-dim rim, top-left highlight ---------- */
@@ -43,7 +43,7 @@ img,svg{max-width:100%}
     linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,.03) 45%,rgba(255,255,255,.1));
   backdrop-filter:blur(18px) saturate(170%);
   -webkit-backdrop-filter:blur(18px) saturate(170%);
-  box-shadow:0 24px 50px -22px rgba(4,5,10,.75),inset 0 1px 0 rgba(255,255,255,.35),inset 0 -12px 24px -14px rgba(31,111,235,.3);
+  box-shadow:0 24px 50px -22px rgba(4,5,10,.75),inset 0 1px 0 rgba(255,255,255,.35),inset 0 -12px 24px -14px rgba(194,133,255,.3);
 }
 .glass::before{
   content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;pointer-events:none;
@@ -59,7 +59,7 @@ img,svg{max-width:100%}
   background-size:200% 100%;
   -webkit-background-clip:text;background-clip:text;color:transparent;
   animation:sheen 7s linear infinite;
-  filter:drop-shadow(0 0 22px rgba(0,229,255,.35));
+  filter:drop-shadow(0 0 22px rgba(120,183,255,.35));
 }
 @keyframes sheen{from{background-position:0% 0}to{background-position:100% 0}}
 .kicker{font:600 13px/1 Orbitron,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--sky);margin:0 0 22px}
@@ -98,10 +98,10 @@ img,svg{max-width:100%}
 .card{display:block;overflow:hidden;padding:24px;border-radius:var(--r);text-decoration:none;transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .35s ease,box-shadow .3s}
 .card::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.14) 50%,transparent 60%);transform:translateX(-120%);transition:transform .9s ease}
 .card:hover::after{transform:translateX(120%)}
-.card:hover{box-shadow:0 30px 60px -24px rgba(0,229,255,.45),0 24px 50px -22px rgba(4,5,10,.75),inset 0 1px 0 rgba(255,255,255,.4)}
-.card h3{font:800 20px/1.2 Syne,sans-serif;margin:0 0 8px;position:relative;z-index:1}
+.card:hover{box-shadow:0 30px 60px -24px rgba(120,183,255,.45),0 24px 50px -22px rgba(4,5,10,.75),inset 0 1px 0 rgba(255,255,255,.4)}
+.card h3{font:800 20px/1.2 Syne,sans-serif;margin:0 0 8px;position:relative;z-index:1;overflow-wrap:anywhere}
 .card p{margin:0;color:var(--mute);font-size:15px;position:relative;z-index:1}
-.card .tag{position:relative;z-index:1;display:inline-block;font:600 11px/1 Orbitron,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mint);border:1px solid rgba(255,184,107,.4);padding:6px 9px;border-radius:999px;margin-bottom:14px}
+.card .tag{position:relative;z-index:1;display:inline-block;font:600 11px/1 Orbitron,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mint);border:1px solid rgba(102,255,194,.4);padding:6px 9px;border-radius:999px;margin-bottom:14px}
 .links{display:flex;gap:14px;margin-top:16px;font-weight:700;font-size:14px;position:relative;z-index:1}
 .links a{color:var(--sky);text-decoration:none}
 .links a:hover{text-decoration:underline}
@@ -113,14 +113,6 @@ img,svg{max-width:100%}
 .repos{display:flex;flex-wrap:wrap;gap:10px}
 .repos a{font:600 14px/1 Syne,sans-serif;text-decoration:none;padding:10px 14px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--ink);backdrop-filter:blur(10px) saturate(160%);transition:border-color .2s,transform .2s}
 .repos a:hover{border-color:var(--sky);transform:translateY(-2px)}
-
-/* ---------- tool spotlight ---------- */
-.spotcard{display:grid;grid-template-columns:1.1fr 1fr;gap:22px;align-items:center}
-.preview{position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:radial-gradient(circle at 22% 30%,var(--sky) 0,transparent 45%),radial-gradient(circle at 80% 68%,var(--mint) 0,transparent 40%),radial-gradient(circle at 62% 18%,var(--violet) 0,transparent 42%),linear-gradient(160deg,#0e1424,#04050a);display:grid;place-items:center}
-.preview span{font:400 clamp(36px,7vw,84px)/1 "Climate Crisis",Unbounded,sans-serif;position:relative}
-.spotcard h3{font:800 clamp(22px,3vw,30px)/1.2 Syne,sans-serif;margin:0 0 12px;position:relative;z-index:1}
-.spotcard p{color:var(--mute);margin:0 0 22px;position:relative;z-index:1}
-.spotcard .btn{position:relative;z-index:1}
 
 /* ---------- footer ---------- */
 .foot{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;padding:48px 0 56px;color:var(--mute);font-size:15px}
@@ -135,9 +127,6 @@ img,svg{max-width:100%}
 @keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-4%)}60%{transform:translate(-4%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
 
 /* ---------- responsive ---------- */
-@media (max-width:760px){
-  .spotcard{grid-template-columns:1fr}
-}
 @media (max-width:640px){
   .nav nav{display:none}
   .section{padding:56px 0}
@@ -153,7 +142,7 @@ img,svg{max-width:100%}
 </style>
 </head>
 <body>
-<canvas id="bg" aria-hidden="true"></canvas>
+<div class="bgtile" aria-hidden="true"></div>
 <div class="shade" aria-hidden="true"></div>
 <div class="spot" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
@@ -163,7 +152,6 @@ img,svg{max-width:100%}
   <nav>
     <a href="#about">About</a>
     <a href="#projects">Projects</a>
-    <a href="#tool">Tool</a>
   </nav>
   <a class="pill" href="https://github.com/Artbyo3" target="_blank" rel="noopener">GitHub ↗</a>
 </header>
@@ -175,7 +163,7 @@ img,svg{max-width:100%}
     <p class="typed"><span id="typed"></span><span class="caret" aria-hidden="true"></span></p>
     <div class="cta">
       <a class="btn primary" href="#projects">See the work</a>
-      <a class="btn ghost glass" href="tools/booth-background-generator.html">Open the BOOTH tool</a>
+      <a class="btn ghost glass" href="https://github.com/Artbyo3" target="_blank" rel="noopener">GitHub profile ↗</a>
     </div>
     <a class="scroll" href="#about" aria-label="Scroll to about">↓</a>
   </section>
@@ -226,17 +214,6 @@ img,svg{max-width:100%}
     </div>
   </section>
 
-  <section id="tool" class="wrap section">
-    <h2 class="kicker reveal">03 · Tool</h2>
-    <article class="card glass spotcard reveal">
-      <div class="preview" aria-hidden="true"><span class="chrome">BOOTH</span></div>
-      <div>
-        <h3>BOOTH Background Generator</h3>
-        <p>Seamless backgrounds, headers and tiles for BOOTH. Metal, liquid, glass and chrome styles with live preview, safe-area guides and a max-KB export.</p>
-        <a class="btn primary" href="tools/booth-background-generator.html">Open the generator</a>
-      </div>
-    </article>
-  </section>
 </main>
 
 <footer class="wrap foot">
@@ -297,80 +274,6 @@ img,svg{max-width:100%}
     root.style.setProperty('--x', e.clientX + 'px');
     root.style.setProperty('--y', e.clientY + 'px');
   }, { passive: true });
-
-  /* Metalheart backdrop: the BOOTH tool's metal() heightfield in its default palette */
-  const cv = document.getElementById('bg');
-  const C1 = [31, 111, 235], C2 = [0, 229, 255], C3 = [255, 184, 107];
-  const mix = (a, b, t) => a.map((v, i) => v + (b[i] - v) * t);
-  const STOPS = [
-    mix(C1, [0, 0, 0], .88),
-    C1,
-    mix(C3, [255, 255, 255], .35),
-    C2,
-    mix(C2, [0, 0, 0], .7),
-    mix(C1, [0, 0, 0], .88)
-  ];
-
-  function metal(w, h, seed) {
-    let s = seed;
-    const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
-    const N = 9, P = [];
-    for (let i = 0; i < N; i++) {
-      P.push({ kx: (rnd() - .5) * 7, ky: (rnd() - .5) * 7, ph: rnd() * 6.28, a: .35 + rnd() * .65, w: rnd() * 6.28 });
-    }
-    const hgt = new Float32Array(w * h);
-    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
-      const u = x / h, v = y / h;
-      let z = 0;
-      for (let i = 0; i < N; i++) {
-        const p = P[i], q = P[(i + 1) % N], r = P[(i + 3) % N];
-        z += p.a * Math.sin(p.kx * u + p.ky * v + p.ph + 1.6 * Math.sin(q.kx * v * .8 + q.ky * u + q.w) + .6 * Math.sin(r.kx * u * 1.3 + r.w));
-      }
-      hgt[y * w + x] = z;
-    }
-    const soft = .6;
-    const bands = 2 + (1 - soft) * 4, S = .18 + (1 - soft) * .25, L = [-.4, -.6, .7];
-    const out = document.createElement('canvas');
-    out.width = w; out.height = h;
-    const octx = out.getContext('2d');
-    const img = octx.createImageData(w, h), d = img.data;
-    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
-      const xm = Math.max(0, x - 1), xp = Math.min(w - 1, x + 1);
-      const ym = Math.max(0, y - 1), yp = Math.min(h - 1, y + 1);
-      const gx = (hgt[y * w + xp] - hgt[y * w + xm]) * h / (xp - xm || 1);
-      const gy = (hgt[yp * w + x] - hgt[ym * w + x]) * h / (yp - ym || 1);
-      let nx = -gx * S, ny = -gy * S, nz = 1;
-      const l = Math.hypot(nx, ny, nz);
-      nx /= l; ny /= l; nz /= l;
-      let t = (.5 + .5 * (nx * .55 + ny * .85)) * bands;
-      t -= Math.floor(t);
-      const f = t * 5, j = Math.min(4, f | 0), k = f - j, sm = k * k * (3 - 2 * k);
-      const c = mix(STOPS[j], STOPS[j + 1], sm);
-      const fr = .55 + .45 * nz;
-      const sp = Math.pow(Math.max(0, nx * L[0] + ny * L[1] + nz * L[2]), 40) * 190
-               + Math.exp(-Math.pow((nx - .25) / .1, 2)) * (ny < 0 ? 45 : 12);
-      const o = (y * w + x) * 4;
-      d[o] = Math.min(255, c[0] * fr + sp);
-      d[o + 1] = Math.min(255, c[1] * fr + sp);
-      d[o + 2] = Math.min(255, c[2] * fr + sp);
-      d[o + 3] = 255;
-    }
-    octx.putImageData(img, 0, 0);
-    return out;
-  }
-
-  function paint() {
-    const w = Math.max(240, Math.round(innerWidth / 4));
-    const h = Math.max(135, Math.round(innerHeight / 4));
-    const seed = Math.floor(Math.random() * 1e6) + 1;
-    cv.width = w;
-    cv.height = h;
-    cv.getContext('2d').drawImage(metal(w, h, seed), 0, 0);
-  }
-
-  let rt;
-  paint();
-  addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(paint, 200); });
 })();
 </script>
 </body>
