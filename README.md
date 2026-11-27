@@ -1,4 +1,4 @@
 <p align="center">
-  <img src="assets/banner.svg" alt="artbyo3" width="100%" />
+  <img src="assets/banner-dither.svg" alt="artbyo3" width="100%" />
 </p>
 
